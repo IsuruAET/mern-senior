@@ -36,7 +36,11 @@ export const getTodos = async (
       data: todos,
     });
   } catch (error) {
-    next(new AppError("Failed to fetch todos", 500));
+    if (!(error instanceof Error)) {
+      next(error);
+    } else {
+      next(new AppError("Failed to fetch todos", 500));
+    }
   }
 };
 
